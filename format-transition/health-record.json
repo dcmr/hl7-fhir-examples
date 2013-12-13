@@ -1,0 +1,30 @@
+{
+    "globalPatientId": "12345",
+    "_id": "529d868e1985e00000000004",
+    "__v": 0,
+    "encounters": [
+        {
+            "location": "Level 6, Soliz House, Kampala",
+            "_id": "529d868e1985e00000000005",
+            "observations": [
+                {
+                    "concept": "B50 - Plasmodium falciparum malaria",
+                    "answer": "It's confirmed, poor boy...",
+                    "_id": "529d868e1985e00000000008",
+                    "observationDateTime": "2013-12-03T07:21:50.746Z"
+                }
+            ],
+            "providers": [
+                {
+                    "providerId": "doctor-1",
+                    "_id": "529d868e1985e00000000007"
+                },
+                {
+                    "providerId": "nurse-2",
+                    "_id": "529d868e1985e00000000006"
+                }
+            ],
+            "encounterDateTime": "2013-12-03T07:21:50.745Z"
+        }
+    ]
+}
