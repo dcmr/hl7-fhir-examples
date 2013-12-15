@@ -5,14 +5,14 @@ describe("FHIR JSON validator", function () {
 
     describe("Patient", function () {
         it("invalidates malformed patient resource", function () {
-            var errors = validator.validate({id: '12345'});
+            var errors = validator.validate({identifier: '12345'});
             expect(errors.length).toBeGreaterThan(0);
         });
 
         it("validates well-formed patient resource", function (done) {
             withValidPatient(function (patient) {
                 var errors = validator.validate(patient);
-                expect(errors.length).toBe(0);
+                expect(errors).toEqual([]);
                 done();
             });
         });
@@ -20,7 +20,7 @@ describe("FHIR JSON validator", function () {
         it("validates json string as well", function (done) {
             withValidPatient(function(patient) {
                 var errors = validator.validate(JSON.stringify(patient));
-                expect(errors.length).toBe(0);
+                expect(errors).toEqual([]);
                 done();
             });
         });
@@ -37,7 +37,7 @@ describe("FHIR JSON validator", function () {
 });
 
 function withValidPatient(callback) {
-    fs.readFile(__dirname + '/fixture/patient-example.json', 'utf-8', function (err, data) {
+    fs.readFile(__dirname + '/fixture/patient/patient-example.json', 'utf-8', function (err, data) {
         var patient = JSON.parse(data);
         callback(patient);
     });
