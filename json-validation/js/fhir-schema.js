@@ -86,7 +86,7 @@ exports.patient = {
             id: 'HumanName',
             properties: {
                 use: {'$ref': 'Code'},
-                text: {type: 'text'},
+                text: {type: 'string'},
                 family: {'$ref': 'ArrayOfString'},
                 given: {'$ref': 'ArrayOfString'},
                 prefix: {'$ref': 'ArrayOfString'},
@@ -198,13 +198,16 @@ exports.patient = {
                         {type: 'integer'}
                     ]
                 },
-                photo: {'$ref': 'Attachment'},
+                photo: {
+                    type: 'array',
+                    items: {'$ref': 'Attachment'}
+                },
                 communication: {
                     type: 'array',
                     items: {'$ref': 'Language'}
                 },
                 careProvider: {
-                    oneOf:[
+                    oneOf: [
                         {'$ref': 'Organization'},
                         {'$ref': 'Practitioner'}
                     ]

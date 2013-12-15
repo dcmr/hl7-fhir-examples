@@ -7,10 +7,9 @@ describe("FHIR JSON validator acceptance", function () {
         it("validates all well-formed patient documents", function () {
             var patientFixtureDir = __dirname + '/fixture/patient';
             var allFixtureFileNames = fs.readdirSync(patientFixtureDir);
-            var fail = this.fail;
             allFixtureFileNames.forEach(function (fixtureFilename) {
                 var patientAsJson = fs.readFileSync(patientFixtureDir + '/' + fixtureFilename);
-                var errors = validator.validate(patientAsJson);
+                var errors = validator.validate(JSON.parse(patientAsJson));
                 if (errors.length > 0) {
                     console.error(errors);
                     throw "Failed to validate file " + fixtureFilename;
