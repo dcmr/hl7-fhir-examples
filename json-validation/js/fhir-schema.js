@@ -3,10 +3,7 @@ exports.patient = {
         DateTime: {
             id: 'DateTime',
             type: 'string',
-            oneOf: [
-                {format: 'anything'},     // FIXME: there's a bug: https://github.com/natesilva/jayschema/issues/19
-                {format: 'date-time'}
-            ]
+            format: 'date'
         },
         URI: {
             id: 'URI',
@@ -65,10 +62,13 @@ exports.patient = {
                 end: {'$ref': 'DateTime'}
             }
         },
-        Organization: {
-            id: 'Organization',
-            type: 'object'
-            // TODO: unimplemented
+        ResourceRef: {
+            id: 'ResourceRef',
+            type: 'object',
+            properties: {
+                reference: {type: 'string'},
+                display: {type: 'string'}
+            }
         },
         Identifier: {
             id: 'Identifier',
@@ -79,7 +79,7 @@ exports.patient = {
                 system: {'$ref': 'URI'},
                 value: {type: 'string'},
                 period: {'$ref': 'Period'},
-                assigner: {'$ref': 'Organization'}
+                assigner: {'$ref': 'ResourceRef'}
             }
         },
         HumanName: {
@@ -159,7 +159,7 @@ exports.patient = {
                 },
                 address: {'$ref': 'Address'},
                 gender: {'$ref': 'AdministrativeGender'},
-                organization: {'$ref': 'Organization'}
+                organization: {'$ref': 'ResourceRef'}
             }
         },
         Patient: {
@@ -206,13 +206,8 @@ exports.patient = {
                     type: 'array',
                     items: {'$ref': 'Language'}
                 },
-                careProvider: {
-                    oneOf: [
-                        {'$ref': 'Organization'},
-                        {'$ref': 'Practitioner'}
-                    ]
-                },
-                managingOrganization: {'$ref': 'Organization'},
+                careProvider: {'$ref': 'ResourceRef'},
+                managingOrganization: {'$ref': 'ResourceRef'},
                 active: {type: 'boolean'},
                 // TODO: Animal
                 // TODO: Link

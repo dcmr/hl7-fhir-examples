@@ -9,6 +9,6 @@
         "jasmine-node" : "*"
     },
     "dependencies": {
-        "jayschema": "*"
+        "jayschema": "~0.2.1"
     }
 }

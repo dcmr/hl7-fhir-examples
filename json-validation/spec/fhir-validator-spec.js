@@ -18,7 +18,7 @@ describe("FHIR JSON validator", function () {
         });
 
         it("validates json string as well", function (done) {
-            withValidPatient(function(patient) {
+            withValidPatient(function (patient) {
                 var errors = validator.validate(JSON.stringify(patient));
                 expect(errors).toEqual([]);
                 done();
@@ -28,6 +28,15 @@ describe("FHIR JSON validator", function () {
         it("invalidates patient resource without identifier", function (done) {
             withValidPatient(function (patient) {
                 patient.identifier = [];
+                var errors = validator.validate(patient);
+                expect(errors.length).toBeGreaterThan(0);
+                done();
+            });
+        });
+
+        it("invalidates patient resource with malformed date", function (done) {
+            withValidPatient(function (patient) {
+                patient.identifier[0].period.start = "bad-date-string";
                 var errors = validator.validate(patient);
                 expect(errors.length).toBeGreaterThan(0);
                 done();
